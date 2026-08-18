@@ -37,3 +37,14 @@
 - `server/_core`・`drizzle`・`server/db.ts`・`server/storage.ts`・AIチャット(`AIChatBox.tsx`)・地図(`Map.tsx`)などManus組込み連携に依存する土台は、将来の機能拡張用にコードとして残していますが、現状どのルートからも呼ばれていません。有効化するには対応する外部サービス(DB・LLM・地図API等)の契約と環境変数設定が別途必要です。
 - 旧環境の `.project-config.json`(DB接続文字列・JWT_SECRET・Forge APIキーなどの実秘密情報を含んでいた)はリポジトリに含めていません。必要な値は `.env.example` を参照し、新しい値を発行してください。
 
+## GitHub Pages公開時の注意(default branch)
+
+このリポジトリは元々コミットが一つもない空リポジトリでした。空リポジトリに対して `main` 以外のブランチ(例: `claude/...`)へ最初に push すると、GitHub はそのブランチを**default branch**として採用してしまいます。その後 `main` に push しても default branch は自動では戻りません(実際、`main` ブランチを後から作成してもdefault branchは `claude/kanbe-lp-restore-publish-58vvia` のままでした)。
+
+GitHub Pagesなど default branch が `main` である前提の機能を使う場合は、次を確認してください。
+
+1. リポジトリの Settings → General → Default branch が `main` になっているか確認し、違えば `main` に変更する(この操作はClaude Codeのツールでは実行できないため、人間が手動で行う必要があります)
+2. (すでに `github-pages` 環境が作成されている場合)Settings → Environments → `github-pages` → Deployment branches and tags が `main` を許可しているか確認する
+
+**今後、新規リポジトリを空のまま作らないための予防策**: GitHubで手動作成する場合は「Add a README file」にチェックを入れて作成する。Claude Codeのツール(`create_repository`)で作成する場合は `autoInit: true` を指定する。どちらも最初から `main` に1コミットある状態で始まるため、この問題自体が発生しない。
+
