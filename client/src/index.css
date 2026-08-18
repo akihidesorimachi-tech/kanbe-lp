@@ -1,0 +1,189 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ============================================
+   DESIGN SYSTEM: Medical Trust Blue
+   - Primary: Navy #1B3A6B (trust, authority)
+   - Accent: Gold #F5A623 (value, premium)
+   - Highlight: Yellow #FFD700 (attention, CTA)
+   - Background: Off-white #F8F9FA (clean)
+   - Text: Charcoal #2D3748
+   ============================================ */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.98 0.003 240);
+  --foreground: oklch(0.22 0.02 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.02 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.02 250);
+  --primary: oklch(0.32 0.09 255);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.95 0.005 240);
+  --secondary-foreground: oklch(0.32 0.09 255);
+  --muted: oklch(0.94 0.005 240);
+  --muted-foreground: oklch(0.55 0.02 250);
+  --accent: oklch(0.75 0.12 70);
+  --accent-foreground: oklch(0.15 0.02 250);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.88 0.01 240);
+  --input: oklch(0.88 0.01 240);
+  --ring: oklch(0.32 0.09 255);
+  --chart-1: oklch(0.32 0.09 255);
+  --chart-2: oklch(0.75 0.12 70);
+  --chart-3: oklch(0.85 0.15 85);
+  --chart-4: oklch(0.45 0.08 255);
+  --chart-5: oklch(0.6 0.1 255);
+
+  /* Custom design tokens */
+  --navy: #1B3A6B;
+  --navy-dark: #0f2347;
+  --navy-light: #2a5298;
+  --gold: #F5A623;
+  --gold-dark: #d4891a;
+  --gold-light: #FFD700;
+  --off-white: #F8F9FA;
+  --charcoal: #2D3748;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Noto Sans JP', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 480px;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  /* Navy gradient background */
+  .bg-navy-gradient {
+    background: linear-gradient(135deg, #0f2347 0%, #1B3A6B 50%, #2a5298 100%);
+  }
+
+  /* Gold accent border */
+  .border-gold {
+    border-color: #F5A623;
+  }
+
+  /* Level card hover effect */
+  .level-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .level-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(27, 58, 107, 0.15);
+  }
+  .level-card:active {
+    transform: translateY(0);
+  }
+
+  /* CTA button pulse animation */
+  @keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(245, 166, 35, 0); }
+  }
+  .btn-cta-pulse {
+    animation: pulse-gold 2s infinite;
+  }
+
+  /* Fade in up animation */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in-up {
+    animation: fadeInUp 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+
+  /* Stagger delays */
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+
+  /* Gold badge */
+  .badge-free {
+    background: linear-gradient(135deg, #F5A623, #FFD700);
+    color: #0f2347;
+    font-weight: 900;
+    font-size: 0.75rem;
+    padding: 2px 10px;
+    border-radius: 100px;
+    display: inline-block;
+  }
+
+  /* Section divider */
+  .section-divider {
+    height: 4px;
+    background: linear-gradient(90deg, #F5A623, #FFD700, #F5A623);
+    border-radius: 2px;
+  }
+}
